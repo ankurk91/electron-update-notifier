@@ -12,8 +12,8 @@ Notify user about new app updates by fetching release from Github repository.
 [update-electron-app](https://github.com/electron/update-electron-app) is an auto updating solution for open source Electron apps. 
 It is awesome but has some limitations:
 
-- Linux is not supported currently
-- For macOS, Apple Developer Program is required (for code sign) to process update
+- It does not support Linux currently
+- macOS applications must be signed in order to work.
 
 This package comes to help in these cases. Instead of downloading installer automatically, 
 it simply notifies user to go to GitHub release page when updates available.
@@ -31,7 +31,8 @@ const { setUpdateNotification } =  require('electron-update-notifier');
 
 setUpdateNotification({
   repository: 'user/repo', // Optional, use repository field from your package.json when not specified
-  token: '', // Optional, GitHub access token
+  token: '', // Optional, GitHub api access token
+  debug: false, // Optional, default `false`, allows to check for updates during development as well
 })
 ```
 

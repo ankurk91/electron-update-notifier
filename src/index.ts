@@ -2,26 +2,36 @@ import path from 'path'
 import fetch from 'node-fetch'
 import electron from 'electron'
 import compareVersions from 'compare-versions';
-
-const gh = require('github-url-to-object')
+import gh from 'github-url-to-object';
 
 interface Options {
   repository?: string
   token?: string,
+  debug?: boolean,
 }
 
-export function setUpdateNotification(options: Options = {}) {
+interface GithubReleaseObject {
+  tag_name: string,
+  body: string,
+  html_url: string,
+}
+
+export const defaultOptions: Options = {
+  debug: false
+};
+
+export function setUpdateNotification(options: Options = defaultOptions) {
   if (electron.app.isReady()) {
-    checkUpdate(options)
+    checkForUpdates(options)
   } else {
     electron.app.on('ready', () => {
-      checkUpdate(options)
+      checkForUpdates(options)
     })
   }
 }
 
-export async function checkUpdate({repository, token}: Options = {}) {
-  if (!electron.app.isPackaged) return
+export async function checkForUpdates({repository, token, debug}: Options = defaultOptions) {
+  if (!electron.app.isPackaged && !debug) return
 
   if (!repository) {
     const pkg = require(path.join(electron.app.getAppPath(), 'package.json'))
@@ -57,13 +67,13 @@ export async function checkUpdate({repository, token}: Options = {}) {
   }
 }
 
-export function showUpdateDialog(latestRelease: any) {
+export function showUpdateDialog(release: GithubReleaseObject) {
   electron.dialog.showMessageBox(
     {
       title: electron.app.getName(),
       type: 'info',
       message: `New release available`,
-      detail: `Version: ${latestRelease.tag_name}\n\n${latestRelease.body}`.trim(),
+      detail: `Version: ${release.tag_name}\n\n${release.body}`.trim(),
       buttons: ['Download', 'Later'],
       defaultId: 0,
       cancelId: 1,
@@ -72,7 +82,7 @@ export function showUpdateDialog(latestRelease: any) {
     .then(({response}) => {
       if (response === 0) {
         setImmediate(() => {
-          electron.shell.openExternal(latestRelease.html_url)
+          electron.shell.openExternal(release.html_url)
         })
       }
     })
