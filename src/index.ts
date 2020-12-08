@@ -8,6 +8,7 @@ interface Options {
   repository?: string
   token?: string,
   debug?: boolean,
+  silent?: boolean,
 }
 
 interface GithubReleaseObject {
@@ -17,20 +18,23 @@ interface GithubReleaseObject {
 }
 
 export const defaultOptions: Options = {
-  debug: false
+  debug: false,
+  silent: true,
 };
 
 export function setUpdateNotification(options: Options = defaultOptions) {
+  const withDefaults = Object.assign(defaultOptions, options);
+
   if (electron.app.isReady()) {
-    checkForUpdates(options)
+    checkForUpdates(withDefaults)
   } else {
     electron.app.on('ready', () => {
-      checkForUpdates(options)
+      checkForUpdates(withDefaults)
     })
   }
 }
 
-export async function checkForUpdates({repository, token, debug}: Options = defaultOptions) {
+export async function checkForUpdates({repository, token, debug, silent}: Options = defaultOptions) {
   if (!electron.app.isPackaged && !debug) return
 
   if (!repository) {
@@ -44,7 +48,7 @@ export async function checkForUpdates({repository, token, debug}: Options = defa
     repository = ghObj.user + '/' + ghObj.repo
   }
 
-  let latestRelease: null | any = null;
+  let latestRelease: null | GithubReleaseObject = null;
 
   try {
     const response = await fetch(
@@ -57,6 +61,10 @@ export async function checkForUpdates({repository, token, debug}: Options = defa
     const json = await response.json()
     latestRelease = json[0]
   } catch (error) {
+    if (!silent) {
+      showDialog('Unable to check for updates at this moment. Try again.', 'error');
+    }
+
     console.error(error)
   }
 
@@ -64,6 +72,10 @@ export async function checkForUpdates({repository, token, debug}: Options = defa
 
   if (compareVersions.compare(latestRelease.tag_name, electron.app.getVersion(), '>')) {
     showUpdateDialog(latestRelease)
+  } else {
+    if (!silent) {
+      showDialog(`You are already running the latest version.`);
+    }
   }
 }
 
@@ -87,6 +99,20 @@ export function showUpdateDialog(release: GithubReleaseObject) {
       }
     })
     .catch((error) => {
-      console.error(error)
+      throw new Error(error)
     })
+}
+
+const showDialog = (detail: string, type: string = 'info') => {
+  electron.dialog.showMessageBox(
+    {
+      title: electron.app.getName(),
+      message: 'Update checker',
+      buttons: ['Close'],
+      defaultId: 0,
+      cancelId: 0,
+      type,
+      detail,
+    },
+  )
 }

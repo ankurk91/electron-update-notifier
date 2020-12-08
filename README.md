@@ -10,14 +10,14 @@
 Notify user about new app updates by fetching release from Github repository.
 
 ## Motivation
-[update-electron-app](https://github.com/electron/update-electron-app) is an auto updating solution for open source Electron apps. 
-It is awesome but has some limitations:
+[update-electron-app](https://github.com/electron/update-electron-app) is an auto updating solution for open source
+Electron apps. It is awesome but has some limitations:
 
 - It does not support Linux currently
-- macOS applications must be signed in order to work.
+- Applications on macOS must be signed in order to work.
 
-This package comes to help in these cases. Instead of downloading installer automatically, 
-it simply notifies user to go to GitHub release page when updates available.
+This package comes to help in these cases. Instead of downloading installer automatically, it simply notifies user to go
+to GitHub release page when updates available.
 
 ## Installation
 ```sh
@@ -27,28 +27,42 @@ npm install electron-update-notifier
 ```
 
 ## Usage
+Auto check for updates on app start
 ```js
-const { setUpdateNotification } =  require('electron-update-notifier');
+const {app} = require('electron');
+const { setUpdateNotification } = require('electron-update-notifier');
 
-setUpdateNotification({
-  repository: 'user/repo', // Optional, use repository field from your package.json when not specified
-  token: '', // Optional, GitHub api access token
-  debug: false, // Optional, default `false`, allows to check for updates during development as well
+app.whenReady().then(() => {
+    setUpdateNotification({
+        repository: 'user/repo', // Optional, use repository field from your package.json when not specified
+        token: '', // Optional, GitHub api access token
+        debug: false, // Optional, default `false`, allows to check for updates during development as well
+        silent: true // Optional, notify when new version available, otherwise remain silent 
+    })
+})
+```
+
+Check for updates manually
+```js
+const { checkForUpdates } = require('electron-update-notifier');
+
+checkForUpdates({
+    // options 
+    silent: false, // Warn about network faluires and notify when there is no updates
 })
 ```
 
 Use it with [update-electron-app](https://github.com/electron/update-electron-app):
-
 ```js
 switch (process.platform) {
-  case 'darwin':
-  case 'win32':
-    require('update-electron-app')()
-    break
-  default:
-    require('electron-update-notifier').setUpdateNotification({
-      // options
-    })
+    case 'darwin':
+    case 'win32':
+        require('update-electron-app')()
+        break
+    default:
+        require('electron-update-notifier').setUpdateNotification({
+            // options
+        })
 }
 ```
 
