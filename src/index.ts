@@ -85,7 +85,7 @@ export function showUpdateDialog(release: GithubReleaseObject) {
       title: electron.app.getName(),
       type: 'info',
       message: `New release available`,
-      detail: `Version: ${release.tag_name}\n\n${release.body}`.trim(),
+      detail: `Installed Version: ${electron.app.getVersion()}\nLatest Version: ${release.tag_name}\n\n${release.body}`.trim(),
       buttons: ['Download', 'Later'],
       defaultId: 0,
       cancelId: 1,
