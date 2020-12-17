@@ -5,6 +5,7 @@
 [![github-tag](https://badgen.net/github/tag/ankurk91/electron-update-notifier)](https://github.com/ankurk91/electron-update-notifier/)
 [![license](https://badgen.net/github/license/ankurk91/electron-update-notifier)](https://yarnpkg.com/en/package/electron-update-notifier)
 [![install size](https://packagephobia.com/badge?p=electron-update-notifier)](https://packagephobia.com/result?p=electron-update-notifier)
+[![build](https://github.com/ankurk91/electron-update-notifier/workflows/build/badge.svg)](https://github.com/ankurk91/electron-update-notifier/actions)
 ![ts](https://badgen.net/badge/Built%20With/TypeScript/blue)
 
 Notify user about new app updates by fetching release from Github repository.
