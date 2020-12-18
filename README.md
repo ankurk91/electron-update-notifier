@@ -10,6 +10,8 @@
 
 Notify user about new app updates by fetching release from Github repository.
 
+![screenshot](/.github/static/update-dialog.png)
+
 ## Motivation
 [update-electron-app](https://github.com/electron/update-electron-app) is an auto updating solution for open source
 Electron apps. It is awesome but has some limitations:
