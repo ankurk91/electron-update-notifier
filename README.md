@@ -51,7 +51,7 @@ const { checkForUpdates } = require('electron-update-notifier');
 
 checkForUpdates({
     // options 
-    silent: false, // Warn about network faluires and notify when there is no updates
+    silent: false, // Warn about network failures and notify when there is no updates
 })
 ```
 
