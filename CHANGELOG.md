@@ -1,6 +1,10 @@
 # Changelog
 
-### 1.4.0
+### 1.5.1
+
+* Replace `node-fetch` with `got`
+
+### 1.4.0 (broken)
 
 * Upgrade node-fetch to v3.x
 

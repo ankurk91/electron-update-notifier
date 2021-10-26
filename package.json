@@ -1,6 +1,6 @@
 {
   "name": "electron-update-notifier",
-  "version": "1.4.0",
+  "version": "1.5.1",
   "description": "Notify user about new app updates by fetching release from Github repository.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
