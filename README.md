@@ -13,6 +13,7 @@ Notify user about new app updates by fetching release from Github repository.
 ![screenshot](/.github/static/update-dialog.png)
 
 ## Motivation
+
 [update-electron-app](https://github.com/electron/update-electron-app) is an auto updating solution for open source
 Electron apps. It is awesome but has some limitations:
 
@@ -23,6 +24,7 @@ This package comes to help in these cases. Instead of downloading installer auto
 to GitHub release page when updates available.
 
 ## Installation
+
 ```sh
 yarn add electron-update-notifier
 # OR
@@ -30,10 +32,12 @@ npm install electron-update-notifier
 ```
 
 ## Usage
+
 Auto check for updates on app start
+
 ```js
 const {app} = require('electron');
-const { setUpdateNotification } = require('electron-update-notifier');
+const {setUpdateNotification} = require('electron-update-notifier');
 
 app.whenReady().then(() => {
     setUpdateNotification({
@@ -46,8 +50,9 @@ app.whenReady().then(() => {
 ```
 
 Check for updates manually
+
 ```js
-const { checkForUpdates } = require('electron-update-notifier');
+const {checkForUpdates} = require('electron-update-notifier');
 
 checkForUpdates({
     // options 
@@ -56,6 +61,7 @@ checkForUpdates({
 ```
 
 Use it with [update-electron-app](https://github.com/electron/update-electron-app):
+
 ```js
 switch (process.platform) {
     case 'darwin':
@@ -70,7 +76,9 @@ switch (process.platform) {
 ```
 
 ## Acknowledgements
+
 [@pd4d10](https://github.com/pd4d10) for original work
 
 ## License
+
 [MIT](LICENSE.txt) License

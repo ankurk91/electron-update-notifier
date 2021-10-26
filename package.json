@@ -23,14 +23,14 @@
   "scripts": {
     "clean": "rm -rf ./dist",
     "watch": "tsc --watch",
-    "prebuild": "yarn run clean",
+    "prebuild": "pnpm run clean",
     "build": "tsc",
-    "prepublishOnly": "yarn run build"
+    "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {
     "@types/github-url-to-object": "^4.0.0",
     "@types/node-fetch": "^2.5.8",
-    "electron": "^12.0.0",
+    "electron": "^15.3.0",
     "typescript": "^4.2.2"
   },
   "dependencies": {
@@ -42,6 +42,6 @@
     "electron": "*"
   },
   "engines": {
-    "node": ">=14.15.0"
+    "node": ">=16.9.0"
   }
 }
