@@ -1,5 +1,5 @@
 import path from 'path'
-import fetch from 'node-fetch'
+import got from 'got';
 import electron from 'electron'
 import compareVersions from 'compare-versions';
 import gh from 'github-url-to-object';
@@ -51,14 +51,13 @@ export async function checkForUpdates({repository, token, debug, silent}: Option
   let latestRelease: null | GithubReleaseObject = null;
 
   try {
-    const response = await fetch(
-      `https://api.github.com/repos/${repository}/releases`,
+    const response = await got.get(`https://api.github.com/repos/${repository}/releases`,
       {
         headers: token ? {authorization: `token ${token}`} : {},
       },
-    )
-    const json = await response.json() as GithubReleaseObject[]
-    latestRelease = json[0] as GithubReleaseObject
+    ).json() as GithubReleaseObject[]
+
+    latestRelease = response[0] as GithubReleaseObject
   } catch (error) {
     if (!silent) {
       showDialog('Unable to check for updates at this moment. Try again.', 'error');
