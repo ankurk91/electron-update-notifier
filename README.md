@@ -1,4 +1,4 @@
-# Electron Update Notifier
+# Electron App Update Notifier
 
 [![downloads](https://badgen.net/npm/dt/electron-update-notifier)](http://npm-stats.com/~packages/electron-update-notifier)
 [![npm-version](https://badgen.net/npm/v/electron-update-notifier)](https://www.npmjs.com/package/electron-update-notifier)

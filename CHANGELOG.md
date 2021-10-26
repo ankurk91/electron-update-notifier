@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.4.0
+
+* Upgrade node-fetch to v3.x
+
 ### 1.2.0
 
 * Option to notify on network failures
