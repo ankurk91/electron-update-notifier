@@ -55,11 +55,10 @@ export async function checkForUpdates({repository, token, debug, silent}: Option
       `https://api.github.com/repos/${repository}/releases`,
       {
         headers: token ? {authorization: `token ${token}`} : {},
-        timeout: 30000, // ms
       },
     )
-    const json = await response.json()
-    latestRelease = json[0]
+    const json = await response.json() as GithubReleaseObject[]
+    latestRelease = json[0] as GithubReleaseObject
   } catch (error) {
     if (!silent) {
       showDialog('Unable to check for updates at this moment. Try again.', 'error');
