@@ -1,5 +1,5 @@
 import path from 'path'
-import got from 'got';
+import axios from 'axios';
 import electron from 'electron'
 import compareVersions from 'compare-versions';
 import gh from 'github-url-to-object';
@@ -18,7 +18,7 @@ interface GithubReleaseObject {
 }
 
 export const defaultOptions: Options = {
-  debug: false,
+  debug: false, // force run in development
   silent: true,
 };
 
@@ -51,19 +51,19 @@ export async function checkForUpdates({repository, token, debug, silent}: Option
   let latestRelease: null | GithubReleaseObject = null;
 
   try {
-    const response = await got.get(`https://api.github.com/repos/${repository}/releases`,
+    const {data: releases} = await axios.get(`https://api.github.com/repos/${repository}/releases`,
       {
         headers: token ? {authorization: `token ${token}`} : {},
       },
-    ).json() as GithubReleaseObject[]
+    )
 
-    latestRelease = response[0] as GithubReleaseObject
+    latestRelease = releases[0] as GithubReleaseObject
   } catch (error) {
+    console.error(error)
+
     if (!silent) {
       showDialog('Unable to check for updates at this moment. Try again.', 'error');
     }
-
-    console.error(error)
   }
 
   if (!latestRelease) return

@@ -40,6 +40,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - run: yarn run build
+      - run: npm run build
 
 

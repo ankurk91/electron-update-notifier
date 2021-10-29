@@ -1,5 +1,9 @@
 # Changelog
 
+### 1.5.3
+
+* Replace `got` with `axios`
+
 ### 1.5.1
 
 * Replace `node-fetch` with `got`
