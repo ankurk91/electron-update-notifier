@@ -1,6 +1,6 @@
 # Electron App Update Notifier
 
-[![downloads](https://badgen.net/npm/dt/electron-update-notifier)](http://npm-stats.com/~packages/electron-update-notifier)
+[![downloads](https://badgen.net/npm/dt/electron-update-notifier)](https://npm-stat.com/charts.html?package=electron-update-notifier&from=2020-12-01)
 [![npm-version](https://badgen.net/npm/v/electron-update-notifier)](https://www.npmjs.com/package/electron-update-notifier)
 [![github-tag](https://badgen.net/github/tag/ankurk91/electron-update-notifier)](https://github.com/ankurk91/electron-update-notifier/)
 [![license](https://badgen.net/github/license/ankurk91/electron-update-notifier)](https://yarnpkg.com/en/package/electron-update-notifier)
