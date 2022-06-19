@@ -32,10 +32,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v2.0.1
-        with:
-          version: 6.18.0
+      - name: Install pnpm
+        run: npm install -g pnpm@^6
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
