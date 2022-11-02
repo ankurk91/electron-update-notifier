@@ -1,7 +1,7 @@
 import path from 'path'
 import axios from 'axios';
 import electron from 'electron'
-import compareVersions from 'compare-versions';
+import {compare} from 'compare-versions';
 import gh from 'github-url-to-object';
 
 interface Options {
@@ -68,7 +68,7 @@ export async function checkForUpdates({repository, token, debug, silent}: Option
 
   if (!latestRelease) return
 
-  if (compareVersions.compare(latestRelease.tag_name, electron.app.getVersion(), '>')) {
+  if (compare(latestRelease.tag_name, electron.app.getVersion(), '>')) {
     showUpdateDialog(latestRelease)
   } else {
     if (!silent) {
